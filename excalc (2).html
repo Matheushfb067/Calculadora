@@ -155,6 +155,18 @@
                 console.log(resultado_calculo_ao_quadrado)
                 document.getElementById('resultado').innerHTML = expressao_exibida
             }
+            if(num=='^10'){
+                var expressao_exibida = expressao
+                expressao = expressao.replace('^10', '');
+                console.log(expressao)
+                expressao = Number(expressao)
+                expressao = expressao**10
+                resultado_calculo_ao_quadrado = `${expressao}`
+                
+                
+                console.log(resultado_calculo_ao_quadrado)
+                document.getElementById('resultado').innerHTML = expressao_exibida
+            }
 
         }
         // essa função irá fazer com que todos os numeros de um determinado calculo sejam apagados.
