@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-BR>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>calculadora</title>
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .fundo{
+            background-image: linear-gradient(45deg, black, rgb(34, 34, 206));
+            /*coloca o fundo inteiro com a cor escolhida de background*/
+            height: 100vh;
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+            /*centraliza os textos na pagina*/
+            text-align: center;
+        }
+        .calculadora {
+            /*coloca somente determinada cor no fundo da calculadora */
+            position: absolute;
+            /*coloca o fundo de preto*/
+            background-color: black;
+            /*Centralização da calculadora*/
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            /*arredonda a borda do background em torno das informações da calculadora*/
+            border-radius: 15px; 
+            /*almenta o tamanho da borda*/
+            padding: 15px;
+
+        }
+        .botão{
+            /*largura e altura do botão*/
+            width: 70px;
+            height: 50px;
+            /*tamanho dos numeros*/
+            font-size: 20px;
+            border-radius: 20px;
+            /*faz o cursor mudar de seta para luvinha quando o curssor é colocado em cima do botão*/
+            cursor: pointer;
+            /*faz a cor do botão ficar sombreada*/
+            background-color: rgb(31, 31, 31);
+            /*remove a borda branca em volta dos botões*/
+            border: none;
+            /*cor dos numeros e simbolos */
+            color: white;
+        }
+        /*essa função permite criar varios efeitos dentro do que se quer modificiar nesse caso muda a cor do botão 
+        quando o cursor entra dentro do bloco do numero*/
+        .botão:hover {
+            background-color: rgb(143, 136, 136);
+        }
+        #resultado {
+            /*cor da caixa de resultado*/
+            background-color: white;
+            /*largura e altura da caixa de resultado*/
+            width: 340px;
+            height: 40px;
+            /*margen de distancia da caixa e dos numeros*/
+            margin: 5px;
+            /*tamanho da fonte do resultado*/
+            font-size: 25px;
+            /*cor do resultado*/
+            color: black;
+            /*direção do resultado dentro da caixa*/
+            text-align: right;
+            padding: 5px;
+
+        }
+        </style>
+</head>
+<body> 
+    <div class="fundo">
+    <h1> Projeto Integrado </h1><br><h3>Matheus Henrique</h3><h3>Ana Livia</h3></br>
+
+    <div class="calculadora">
+         <h1>Calculadora</h1>
+         <p id="resultado"></p>
+        <table>
+            <tr>
+                <td><button class="botão" style="background-color: rgb(177, 206, 138); color: black;" onclick="clean()">AC</button></td>
+                <td><button class="botão" style="background-color: rgb(43, 43,199); color: black;" onclick="inserir('(')">(</button></td>
+                <td><button class="botão" style="background-color: rgb(43, 43,199); color: black;" onclick="inserir(')')">)</button></td>
+                <td><button class="botão" style="background-color: rgb(43, 43,199); color: black;" onclick="inserir('%')">%</button></td>
+                <td><button class="botão" style="background-color: rgb(43, 43,199); color: black;" onclick="inserir('3,14')">π</button></td>
+
+            </tr>
+            <tr>
+               <td><button class="botão" onclick="inserir('7')">7</button></td>
+               <td><button class="botão" onclick="inserir('8')">8</button></td>
+               <td><button class="botão" onclick="inserir('9')">9</button></td>
+               <td><button class="botão" style="background-color: rgb(43, 43,199); color: black;" onclick="inserir('*')">x</button></td>
+               <td><button class="botão" style="background-color: rgb(43, 43,199); color: black;" onclick="inserir('√')">√</button></td>
+           </tr>
+            <tr>
+               <td><button class="botão" onclick="inserir('4')">4</button></td>
+               <td><button class="botão" onclick="inserir('5')">5</button></td>
+               <td><button class="botão" onclick="inserir('6')">6</button></td>
+              <td><button class="botão" style="background-color: rgb(43, 43,199); color: black;" onclick="inserir('/')">/</button></td>
+               <td><button class="botão" style="background-color: rgb(43, 43,199); color: black;" onclick="inserir('^2')">x^2</button></td>
+               <script>
+
+               </script>
+            </tr>
+            <tr>
+               <td><button class="botão" onclick="inserir('1')">1</button></td>
+               <td><button class="botão" onclick="inserir('2')">2</button></td>
+               <td><button class="botão" onclick="inserir('3')">3</button></td>
+               <td><button class="botão" style="background-color: rgb(43, 43, 199); color: black;" onclick="inserir('+')">+</button></td>
+               <td><button class="botão" style="background-color: rgb(43, 43,199); color: black;" onclick="inserir('!')">n!</button></td>
+            </tr>
+            <tr>
+                <td><button class="botão" onclick="inserir('.')">,</button></td>
+                <td><button class="botão" onclick="inserir('0')">0</button></td>
+                <td><button class="botão" onclick="back()"><<</button></td>
+                <td><button class="botão" style="background-color: rgb(43, 43,199); color: black;" onclick="inserir('-')">-</button></td> 
+                <td><button class="botão" style="background-color: rgb(185, 171, 171); color: black;" onclick="calcular()">=</button></td>
+            </tr>
+        </table>
+    </div> 
+</div>
+    <script>
+        var resultado_calculo_ao_quadrado =''
+        // função: onde serão inseridas as condições de existencia que farão os numeros agirem a formar um calculo.
+        function inserir(num) {
+            var valor = document.getElementById('resultado').innerHTML; 
+            // valor + num: usa o valor inserido e deixa ele junto do proximo numero no visor da calculadora, um seguinte do outro.
+           var expressao = document.getElementById('resultado').innerHTML = valor + num
+           document.getElementById('resultado').innerHTML = valor + num
+           
+
+            if(num=='√'){
+                expressao = expressao.replace(/.$/, '');
+                console.log(expressao)
+                expressao = Math.sqrt(Number(expressao))
+                expressao = `${expressao}`
+                document.getElementById('resultado').innerHTML = expressao
+            }
+
+             if(num=='^2'){
+                var expressao_exibida = expressao
+                expressao = expressao.replace('^2', '');
+                console.log(expressao)
+                expressao = Number(expressao)
+                expressao = expressao**2
+                resultado_calculo_ao_quadrado = `${expressao}`
+                
+                
+                console.log(resultado_calculo_ao_quadrado)
+                document.getElementById('resultado').innerHTML = expressao_exibida
+            }
+
+        }
+        // essa função irá fazer com que todos os numeros de um determinado calculo sejam apagados.
+        function clean(){
+            document.getElementById('resultado').innerHTML = "";
+        }
+        // apaga um por um os numeros inseridos no visor.
+        // o comando substring tem a capacidade de manipular caracteres .
+        // o comando length significa comprimento ou sejá ele pode diminuir ou aumentar os caracteres.
+        // quando usado o comando substring juntamente do length com o -1 na frente, apenas um caractere é apagado do visor.
+        function back(){
+            var resultado = document.getElementById('resultado').innerHTML;
+            document.getElementById('resultado').innerHTML = resultado.substring(0, resultado.length -1);
+        }
+        // por fim essa function é a que resulverá os calculos inseridos nela.
+        function calcular(){
+            var resultado = document.getElementById('resultado').innerHTML;
+            // o comando eval é o responsavel por fazer com que a calculadora resolva automaticamente os calculos inseridos.
+            console.log(` AQUI ESTA O RESULTADO: ${resultado_calculo_ao_quadrado}`)
+            if(resultado_calculo_ao_quadrado!=''){
+                console.log(resultado)
+               
+                document.getElementById('resultado').innerHTML = resultado_calculo_ao_quadrado
+            }
+
+
+            
+            else if (resultado ){
+                document.getElementById('resultado').innerHTML = eval(resultado);
+            }
+
+            
+
+           
+            else{
+                document.getElementById('resultado').innerHTML = "Nenhum valor inserido!";
+            }
+
+            
+            
+        }
+    </script>
+</body>
+</html>
